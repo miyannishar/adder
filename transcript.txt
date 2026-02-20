@@ -5,13 +5,17 @@
 cargo run -- test/37.snek test/37.s
    Compiling sexp v1.1.4
    Compiling adder v0.1.0 (/Users/nisharmiya/MyComputer/Programming/pl_assignment/adder)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.94s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.01s
      Running `target/debug/adder test/37.snek test/37.s`
 nasm -f macho64 test/37.s -o runtime/our_code.o
 ar rcs runtime/libour_code.a runtime/our_code.o
 rustc --target x86_64-apple-darwin -L runtime/ runtime/start.rs -o test/37.run
-rm test/37.s
 --- Assembly ---
+section .text
+global our_code_starts_here
+our_code_starts_here:
+  mov rax, 37
+  ret
 --- Output ---
 37
 
@@ -25,8 +29,14 @@ cargo run -- test/add_sub.snek test/add_sub.s
 nasm -f macho64 test/add_sub.s -o runtime/our_code.o
 ar rcs runtime/libour_code.a runtime/our_code.o
 rustc --target x86_64-apple-darwin -L runtime/ runtime/start.rs -o test/add_sub.run
-rm test/add_sub.s
 --- Assembly ---
+section .text
+global our_code_starts_here
+our_code_starts_here:
+  mov rax, 5
+  sub rax, 1
+  add rax, 1
+  ret
 --- Output ---
 5
 
@@ -40,8 +50,14 @@ cargo run -- test/add.snek test/add.s
 nasm -f macho64 test/add.s -o runtime/our_code.o
 ar rcs runtime/libour_code.a runtime/our_code.o
 rustc --target x86_64-apple-darwin -L runtime/ runtime/start.rs -o test/add.run
-rm test/add.s
 --- Assembly ---
+section .text
+global our_code_starts_here
+our_code_starts_here:
+  mov rax, 5
+  add rax, 1
+  add rax, 1
+  ret
 --- Output ---
 7
 
@@ -55,8 +71,15 @@ cargo run -- test/complex.snek test/complex.s
 nasm -f macho64 test/complex.s -o runtime/our_code.o
 ar rcs runtime/libour_code.a runtime/our_code.o
 rustc --target x86_64-apple-darwin -L runtime/ runtime/start.rs -o test/complex.run
-rm test/complex.s
 --- Assembly ---
+section .text
+global our_code_starts_here
+our_code_starts_here:
+  mov rax, 73
+  add rax, 1
+  sub rax, 1
+  sub rax, 1
+  ret
 --- Output ---
 72
 
@@ -70,8 +93,14 @@ cargo run -- test/negate_negate.snek test/negate_negate.s
 nasm -f macho64 test/negate_negate.s -o runtime/our_code.o
 ar rcs runtime/libour_code.a runtime/our_code.o
 rustc --target x86_64-apple-darwin -L runtime/ runtime/start.rs -o test/negate_negate.run
-rm test/negate_negate.s
 --- Assembly ---
+section .text
+global our_code_starts_here
+our_code_starts_here:
+  mov rax, 7
+  neg rax
+  neg rax
+  ret
 --- Output ---
 7
 
@@ -85,8 +114,14 @@ cargo run -- test/negate.snek test/negate.s
 nasm -f macho64 test/negate.s -o runtime/our_code.o
 ar rcs runtime/libour_code.a runtime/our_code.o
 rustc --target x86_64-apple-darwin -L runtime/ runtime/start.rs -o test/negate.run
-rm test/negate.s
 --- Assembly ---
+section .text
+global our_code_starts_here
+our_code_starts_here:
+  mov rax, 3
+  add rax, 1
+  neg rax
+  ret
 --- Output ---
 -4
 
@@ -100,8 +135,12 @@ cargo run -- test/negative.snek test/negative.s
 nasm -f macho64 test/negative.s -o runtime/our_code.o
 ar rcs runtime/libour_code.a runtime/our_code.o
 rustc --target x86_64-apple-darwin -L runtime/ runtime/start.rs -o test/negative.run
-rm test/negative.s
 --- Assembly ---
+section .text
+global our_code_starts_here
+our_code_starts_here:
+  mov rax, -5
+  ret
 --- Output ---
 -5
 
@@ -115,8 +154,16 @@ cargo run -- test/nested.snek test/nested.s
 nasm -f macho64 test/nested.s -o runtime/our_code.o
 ar rcs runtime/libour_code.a runtime/our_code.o
 rustc --target x86_64-apple-darwin -L runtime/ runtime/start.rs -o test/nested.run
-rm test/nested.s
 --- Assembly ---
+section .text
+global our_code_starts_here
+our_code_starts_here:
+  mov rax, 10
+  add rax, 1
+  sub rax, 1
+  add rax, 1
+  neg rax
+  ret
 --- Output ---
 -11
 
@@ -130,8 +177,13 @@ cargo run -- test/sub.snek test/sub.s
 nasm -f macho64 test/sub.s -o runtime/our_code.o
 ar rcs runtime/libour_code.a runtime/our_code.o
 rustc --target x86_64-apple-darwin -L runtime/ runtime/start.rs -o test/sub.run
-rm test/sub.s
 --- Assembly ---
+section .text
+global our_code_starts_here
+our_code_starts_here:
+  mov rax, 10
+  sub rax, 1
+  ret
 --- Output ---
 9
 
@@ -145,8 +197,12 @@ cargo run -- test/zero.snek test/zero.s
 nasm -f macho64 test/zero.s -o runtime/our_code.o
 ar rcs runtime/libour_code.a runtime/our_code.o
 rustc --target x86_64-apple-darwin -L runtime/ runtime/start.rs -o test/zero.run
-rm test/zero.s
 --- Assembly ---
+section .text
+global our_code_starts_here
+our_code_starts_here:
+  mov rax, 0
+  ret
 --- Output ---
 0
 

@@ -1,9 +1,7 @@
-# =============================================================================
-# Adder Makefile (macOS version)
-# =============================================================================
-# Same pipeline as Linux, but uses macho64 object format for macOS.
-# On Apple Silicon Macs, x86-64 code runs via Rosetta 2 translation.
-# =============================================================================
+# Adder Makefile
+
+.PRECIOUS: test/%.s
+
 
 test/%.s: test/%.snek src/main.rs
 	cargo run -- $< test/$*.s
