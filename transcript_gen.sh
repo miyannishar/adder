@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# Run from the adder/ project root.
-# Generates transcript.txt with source, compile output, assembly, and run output for each test.
 set -e
 rm -f transcript.txt
 for snek in test/*.snek; do
